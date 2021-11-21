@@ -1,0 +1,181 @@
+if game.placeid == 171391948 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Vehicle Simulator Succ (REMASTERED GUI)", "DarkTheme")
+local Vehicle = Window:NewTab("Vehicle")
+local Player = Window:NewTab("LocalPlayer")
+local PlayerSection = Player:NewSection("Player")
+local FindVehicle = Vehicle:NewSection("Find Vehicle")
+local CarMods = Vehicle:NewSection("Vehicle Mods")
+local OtherStuff = Vehicle:NewSection("Other")
+local CreditTab = Window:NewTab("Credit")
+local CreditSection = CreditTab:NewSection("Credit")
+local miscellaneous = CreditTab:NewSection("miscellaneous")
+PlayerSection:NewSlider("Walkspeed", "Changes your walkspeed!", 350, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+PlayerSection:NewSlider("Jump Height", "Changes your Jump Height!", 350, 50, function(a) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = a
+end)
+
+CarMods:NewSlider("Speed", "Changes your Vehicle's Speed!", 5000000, 10, function(b) -- 500 (MaxValue) | 0 (MinValue)
+    while true do
+    findCar()
+    myCar.Handling.MaxSpeed.Value = b
+    myCar.Handling.SteeringRadiusConstant.Value = 150000
+    end 
+  end)
+end)
+
+CarMods:NewSlider("Torqe", "Changes your Vehicle's Torqe!", 5000000, 10, function(c) -- 500 (MaxValue) | 0 (MinValue)
+    while true do
+        findCar()
+        myCar.Handling.Torqe.Value = c
+       end 
+      end)
+end)
+
+CarMods:NewSlider("Nitro", "Changes your Vehicle's Nitro!", 5000000, 10, function(d) -- 500 (MaxValue) | 0 (MinValue)
+    while true do
+        findCar()
+        myCar.Handling.Nitro.NitroSpeed.Value = d
+        end 
+      end)
+end)
+
+CarMods:NewSlider("Braking", "Changes your Vehicle's Braking!", 5000000, 10, function(e) -- 500 (MaxValue) | 0 (MinValue)
+    while true do
+        findCar()
+        myCar.Handling.Braking.Value = e
+    end 
+end)
+end)
+
+CarMods:NewSlider("Jump Height", "Changes your Vehicle's Jump Height! (DONT GO TO HIGH OR YOU'LL DIE!)", 5000000, 10, function(f) -- 500 (MaxValue) | 0 (MinValue)
+    while true do
+        findCar()
+        myCar.Handling.TurboJump.TurboJumpHeight.Value = f
+        end 
+      end)
+end)
+
+CarMods:NewButton("Super Car", "Turns your car in to a super car!", function()
+    findCar()
+myCar.Handling.MaxSpeed.Value = 10000
+myCar.Handling.Torque.Value = 55555
+myCar.Handling.SteeringRadiusConstant.Value = 15000
+myCar.Handling.FrictionRoad.Value = 250
+myCar.Handling.Nitro.NitroSpeed.Value = 100000
+myCar.Handling.Nitro.NitroForce.Value = 100000
+myCar.Handling.Braking.Value = 100000
+myCar.Handling.TurboJump.TurboJumpHeight.Value = 25
+end)
+end)
+
+OtherStuff:NewButton("Get Crates", "Teleports you To all the crates on the server!", function()
+    TptoCrate.MouseButton1Down:connect(function()
+        local crates = workspace:getChildren()
+    for i=1,#crates do
+    if crates[i].ClassName == "Model" then
+    local crates2 = crates[i]:getChildren()
+    for i=1,#crates2 do
+    if crates2[i].ClassName == "Model" then
+    local crates3 = crates2[i]:getChildren()
+    for i=1,#crates3 do
+    if crates3[i].ClassName == "MeshPart" then
+    if crates3[i]:findFirstChild("Smoke") then
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(crates3[i].Position.X+30,crates3[i].Position.Y+5,crates3[i].Position.Z))
+    wait()
+    game.Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(crates3[i].Position.X,crates3[i].Position.Y,crates3[i].Position.Z))
+    wait(4)
+    end
+    end
+    end
+    end
+    end
+    end
+    end
+    end)
+end)
+
+OtherStuff:NewButton("Crate ESP", "Allows you to see crates from anywhere!", function()
+    CrateESP.MouseButton1Down:connect(function()
+        local crates = workspace:getChildren()
+    for i=1,#crates do
+    if crates[i].ClassName == "Model" then
+    local crates2 = crates[i]:getChildren()
+    for i=1,#crates2 do
+    if crates2[i].ClassName == "Model" then
+    local crates3 = crates2[i]:getChildren()
+    for i=1,#crates3 do
+    if crates3[i].ClassName == "MeshPart" then
+    if crates3[i]:findFirstChild("Smoke") then
+    if crates3[i]:findFirstChild("BoxHandleAdornment") then
+        crates3[i]:findFirstChild("BoxHandleAdornment"):Remove()
+    else
+    local a = Instance.new("BoxHandleAdornment",crates3[i])
+    a.Size = Vector3.new(10,500,6)
+    a.SizeRelativeOffset = Vector3.new(0,135,0)
+    a.Color3 = Color3.fromRGB(0,255,0)
+    a.Transparency = 0.5
+    a.AlwaysOnTop = true
+    a.Adornee = crates3[i]
+    a.ZIndex = 1
+    local b = Instance.new("BoxHandleAdornment",crates3[i])
+    b.Size = Vector3.new(10,4,6)
+    b.Color3 = Color3.fromRGB(0,0,255)
+    b.Transparency = 0.3
+    b.AlwaysOnTop = true
+    b.Adornee = crates3[i]
+    b.ZIndex = 1
+    end
+    end
+    end
+    end
+    end
+    end
+    end
+    end
+    end)
+end)
+
+OtherStuff:NewButton("Get All Perks", "Gives you owner Perks!", function()
+    game:GetService("Players").LocalPlayer.UserId = 1099580
+end)
+
+miscellaneous:NewKeybind("Toggle UI: RIGHT CRTL", "Toggles UI When The key is pressed!", Enum.KeyCode.RightControl, function()
+	Library:ToggleUI()
+end)
+
+CreditTab:NewLabel("Scripts made by: DukyBG")
+CreditTab:NewLabel("GUI Made by Mrolives#3128")
+miscellaneous:NewLabel("Version: 2.0")
+miscellaneous:NewLabel("Created: 11/21/2021")
+
+
+
+
+
+
+
+
+
+FindVehicle:NewButton("Find Vehicle", "Finds your car!", function()
+    function findCar()
+        local vehicle = workspace.Vehicles:getChildren()
+        for i=1,#vehicle do
+        if vehicle[i]:findFirstChild("owner") then
+        if vehicle[i].owner.Value == game.Players.LocalPlayer.Name then
+        myCar = vehicle[i]
+        end
+        end
+        end
+        end
+     wait(0.2)
+    Print("Car Found!")
+end)
+
+
+
+
+end
